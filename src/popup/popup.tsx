@@ -498,7 +498,7 @@ const Popup = () => {
                   style={{ height: "60px", overflowY: "auto" }}
                 >
                   <p>
-                    {age !== 15 && `${age} `}
+                    {`${age} `}
                     {gender && `${gender} `}
                     {smoking && `${smoking} `}
                     {paymentAmount !== "$" && `${paymentAmount} `}
