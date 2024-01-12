@@ -4,11 +4,31 @@ import { useTransition, animated } from "react-spring";
 import ActuarialCalculation from "../calculations/ActuarialCalculation";
 import { SensitivityCalculation } from "../calculations/SensitivityCalculation";
 import handleFileUpload from "../excel/FileHandlers";
+import * as XLSX from "xlsx";
 
 const Popup = () => {
   const Stages = {
     Input: 1,
     Result: 2,
+  };
+  const exportToXLSX = () => {
+    // Create a new workbook
+    const wb = XLSX.utils.book_new();
+
+    // Add a worksheet with your data
+    const ws = XLSX.utils.json_to_sheet([
+      {
+        Gender: gender,
+        Age: age,
+        SmokingStatus: smoking /* Add more fields as needed */,
+      },
+    ]);
+
+    // Assign the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
+
+    // Save the workbook as an XLSX file
+    XLSX.writeFile(wb, "actuarial_data.xlsx");
   };
 
   // State for Retirement or Actuarial Button
@@ -173,6 +193,7 @@ const Popup = () => {
     } else {
       setStage(Stages.Result);
     }
+    exportToXLSX();
   };
 
   const handleBackToStage1 = () => {
@@ -316,7 +337,7 @@ const Popup = () => {
         <input type="file" accept=".xlsx, .csv" onChange={handleFileUpload} />
       </div>
 
-      {/* <div className="mb-4">
+      <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2">
           Number of Pay Periods
         </label>
@@ -384,7 +405,7 @@ const Popup = () => {
             setPaymentAmount(formatPaymentAmountInput(e.target.value))
           }
         />
-      </div> */}
+      </div>
       <button
         className="bg-green-500 text-white px-4 py-2 rounded hover-bg-green-600 mt-4"
         onClick={handleCalculate}
