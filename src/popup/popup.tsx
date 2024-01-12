@@ -26,7 +26,7 @@ const Popup = () => {
   const [paymentStartYear, setPaymentStartYear] = useState("0");
   const [stage, setStage] = useState(Stages.Input);
   const [result, setResult] = useState<number | null>(null);
-  const [ageDisplay, setAgeDisplay] = useState<number | "">(15);
+  const [ageDisplay, setAgeDisplay] = useState<number | "">("");
   const [age, setAge] = useState<number>(15);
   const [ageError, setAgeError] = useState(false);
   const [payPeriodError, setPayPeriodError] = useState(false);
@@ -72,13 +72,26 @@ const Popup = () => {
     // Create a new workbook
     const wb = XLSX.utils.book_new();
 
+    // Generate an array from 1 to N, where N is calculated as 100 - age
+    const policyYearValues = Array.from({ length: 100 - age }, (_, i) => i + 1);
+
     // Add a worksheet with your data
     const ws = XLSX.utils.json_to_sheet([
       {
-        Gender: gender,
-        Age: age,
-        SmokingStatus: smoking /* Add more fields as needed */,
+        "Guaranteed Coverage Amount": "",
+        "Total Guaranteed Cash Values": "",
+        "Total Deposits": "",
+        "Total Cash Surrender Values": "",
+        "Policy Year EOY": "", // Placeholder for column title
       },
+      // Add another row for each policy year
+      ...policyYearValues.map((policyYear) => ({
+        "Guaranteed Coverage Amount": "", // Add your data here
+        "Total Guaranteed Cash Values": "", // Add your data here
+        "Total Deposits": "", // Add your data here
+        "Total Cash Surrender Values": "", // Add your data here
+        "Policy Year EOY": policyYear, // Populate Policy Year EOY column
+      })),
     ]);
 
     // Assign the worksheet to the workbook
@@ -87,6 +100,7 @@ const Popup = () => {
     // Save the workbook as an XLSX file
     XLSX.writeFile(wb, "actuarial_data.xlsx");
   };
+
   // Function to format result
   const formatResult = (value: number): string => {
     if (isNaN(value) || typeof value !== "number") {
