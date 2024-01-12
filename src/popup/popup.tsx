@@ -436,10 +436,6 @@ const Popup = () => {
           {sensitivityResult &&
             formatResult(sensitivityResult.higherCashValue65 || 0)}
         </p>{" "}
-        {/* <p className="font-bold">Cash Value age=85</p>
-        <p></p>
-        <p></p>
-        <p></p> */}
       </div>
       <div className="py-32">
         <button
