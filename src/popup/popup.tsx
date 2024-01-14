@@ -5,7 +5,7 @@ import * as XLSX from "xlsx";
 import { SensitivityCalculation } from "../calculations/SensitivityCalculation";
 import handleFileUpload from "../excel/FileHandlers";
 import ActuarialCalculation from "../calculations/ActuarialCalculation";
-
+import ToggleButtons from "../components/toggle";
 const Popup = () => {
   // Add stages
   const Stages = {
@@ -13,6 +13,8 @@ const Popup = () => {
     Result: "result",
   };
   // State
+  const [showPolicyIllustrator, setShowPolicyIllustrator] = useState(true);
+
   const [isActuarialMode, setIsActuarialMode] = useState(true);
   const [gender, setGender] = useState("");
   const [smoking, setSmoking] = useState("");
@@ -51,6 +53,7 @@ const Popup = () => {
   const [showToggle, setShowToggle] = useState(true);
   const toggleScreen = () => {
     setShowToggle(!showToggle);
+    setShowPolicyIllustrator(!showPolicyIllustrator);
   };
   // Function to format the interest rate input
   const reformatInterestRateInput = (value: string): string => {
@@ -483,9 +486,13 @@ const Popup = () => {
         {showToggle ? (
           <div>
             {/* Your toggle button */}
-            <button onClick={toggleScreen} className="border text-blue-500">
-              Toggle
-            </button>
+            {
+              <ToggleButtons
+                toggleScreen={toggleScreen}
+                showPolicyIllustrator={showPolicyIllustrator}
+              />
+            }
+
             <div>
               <div>
                 <div className="flex justify-start  mb-8">
@@ -530,9 +537,12 @@ const Popup = () => {
         ) : (
           <div>
             {" "}
-            <button onClick={toggleScreen} className="border text-blue-500">
-              Toggle
-            </button>
+            {
+              <ToggleButtons
+                toggleScreen={toggleScreen}
+                showPolicyIllustrator={showPolicyIllustrator}
+              />
+            }
             <div>
               <div className="flex justify-start  mb-8">
                 <div className="flex flex-col w-full">
