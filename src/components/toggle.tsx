@@ -36,7 +36,7 @@ const ToggleButtons: React.FC<ToggleButtonsProps> = ({
       <ToggleButton
         value="left"
         aria-label="left aligned"
-        disabled={!showPolicyIllustrator}
+        disabled={showPolicyIllustrator}
         size="small"
         style={buttonStyle}
       >
@@ -46,7 +46,7 @@ const ToggleButtons: React.FC<ToggleButtonsProps> = ({
       <ToggleButton
         value="justify"
         aria-label="justified"
-        disabled={showPolicyIllustrator}
+        disabled={!showPolicyIllustrator}
         size="small"
         style={buttonStyle}
       >
