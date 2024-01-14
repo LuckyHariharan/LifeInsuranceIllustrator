@@ -483,7 +483,9 @@ const Popup = () => {
         {showToggle ? (
           <div>
             {/* Your toggle button */}
-            <button onClick={toggleScreen}>Toggle</button>
+            <button onClick={toggleScreen} className="border text-blue-500">
+              Toggle
+            </button>
             <div>
               <div>
                 <div className="flex justify-start  mb-8">
@@ -522,11 +524,15 @@ const Popup = () => {
                   </div>
                 </div>
               </div>
-              {stage1}
+              {/* Your toggle button */}
             </div>
           </div>
         ) : (
           <div>
+            {" "}
+            <button onClick={toggleScreen} className="border text-blue-500">
+              Toggle
+            </button>
             <div>
               <div className="flex justify-start  mb-8">
                 <div className="flex flex-col w-full">
