@@ -484,18 +484,20 @@ const Popup = () => {
       </h1>
       <div>
         {showToggle ? (
-          <div>
+          <div className="">
             {/* Your toggle button */}
-            {
-              <ToggleButtons
-                toggleScreen={toggleScreen}
-                showPolicyIllustrator={showPolicyIllustrator}
-              />
-            }
+            <div className="flex justify-center">
+              {
+                <ToggleButtons
+                  toggleScreen={toggleScreen}
+                  showPolicyIllustrator={showPolicyIllustrator}
+                />
+              }
+            </div>
 
             <div>
               <div>
-                <div className="flex justify-start  mb-8">
+                <div className="flex justify-start ">
                   <div className="flex flex-col w-full">
                     <p>V1.03 </p>
                     <p>Lakshman Hariharan </p>
@@ -537,14 +539,17 @@ const Popup = () => {
         ) : (
           <div>
             {" "}
-            {
-              <ToggleButtons
-                toggleScreen={toggleScreen}
-                showPolicyIllustrator={showPolicyIllustrator}
-              />
-            }
+            {/* Your toggle button */}
+            <div className="flex justify-center">
+              {
+                <ToggleButtons
+                  toggleScreen={toggleScreen}
+                  showPolicyIllustrator={showPolicyIllustrator}
+                />
+              }
+            </div>
             <div>
-              <div className="flex justify-start  mb-8">
+              <div className="flex justify-start  ">
                 <div className="flex flex-col w-full">
                   <p>V1.03 </p>
                   <p>Lakshman Hariharan </p>
