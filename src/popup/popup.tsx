@@ -48,7 +48,10 @@ const Popup = () => {
     higherCashValue85: number;
     cashValue65: number;
   };
-
+  const [showToggle, setShowToggle] = useState(true);
+  const toggleScreen = () => {
+    setShowToggle(!showToggle);
+  };
   // Function to format the interest rate input
   const reformatInterestRateInput = (value: string): string => {
     // Remove any non-digit characters (except ".")
@@ -423,7 +426,8 @@ const Popup = () => {
       </button>
     </div>
   );
-  // Stage 2: Result
+  // Rest of the code comments
+
   const stage2 = (
     <div className="text-center h-full space-y-12 w-full ">
       <p className="text-xl mb-4 ">
@@ -476,8 +480,13 @@ const Popup = () => {
           : "Result"}
       </h1>
       <div>
-        {stage === Stages.Input ? (
-          <>
+        {showToggle ? (
+          <div>
+            {/* Your toggle button */}
+            <button onClick={toggleScreen}>Toggle</button>
+          </div>
+        ) : (
+          <div>
             <div>
               <div className="flex justify-start  mb-8">
                 <div className="flex flex-col w-full">
@@ -516,9 +525,7 @@ const Popup = () => {
               </div>
             </div>
             {stage1}
-          </>
-        ) : (
-          stage2
+          </div>
         )}
       </div>
     </div>
