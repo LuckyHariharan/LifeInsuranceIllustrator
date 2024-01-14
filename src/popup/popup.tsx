@@ -486,7 +486,7 @@ const Popup = () => {
         {showToggle ? (
           <div className="">
             {/* Your toggle button */}
-            <div className="flex justify-center">
+            <div className="flex  py-2 justify-center">
               {
                 <ToggleButtons
                   toggleScreen={toggleScreen}
@@ -496,51 +496,49 @@ const Popup = () => {
             </div>
 
             <div>
-              <div>
-                <div className="flex justify-start ">
-                  <div className="flex flex-col w-full">
-                    <p>V1.03 </p>
-                    <p>Lakshman Hariharan </p>
-                  </div>
-                  <input
-                    className={`border rounded  px-3 py-2 w-full ${
-                      inputFieldsFocused.name ? "border-black" : ""
-                    }`}
-                    placeholder="Enter Profile Name"
-                  />
+              <div className="flex justify-start  ">
+                <div className="flex flex-col w-full">
+                  <p>V1.03 </p>
+                  <p>Lakshman Hariharan </p>
                 </div>
-                <div>
-                  <p className="font-bold">Illustration Details</p>
-                  <div
-                    className="flex bg-white rounded border-2 border-black p-4 w-full mb-2"
-                    style={{ height: "60px", overflowY: "auto" }}
-                  >
-                    <p>
-                      {`${age} `}
-                      {gender && `${gender} `}
-                      {smoking && `${smoking} `}
-                      {paymentAmount !== "$" && `${paymentAmount} `}
-                      {interestRate !== "%" && `${interestRate} `}
-                      {periods &&
-                      !isNaN(parseInt(periods)) &&
-                      parseInt(periods) !== 0 ? (
-                        <span>
-                          {parseInt(periods)}{" "}
-                          {parseInt(periods) === 1 ? "year" : "years"}
-                        </span>
-                      ) : null}
-                    </p>
-                  </div>
+                <input
+                  className={`border rounded  px-3 py-2 w-full ${
+                    inputFieldsFocused.name ? "border-black" : ""
+                  }`}
+                  placeholder="Enter Profile Name"
+                />
+              </div>
+              <div>
+                <p className="font-bold">Illustration Details</p>
+                <div
+                  className="flex bg-white rounded border-2 border-black p-4 w-full mb-2"
+                  style={{ height: "60px", overflowY: "auto" }}
+                >
+                  <p>
+                    {`${age} `}
+                    {gender && `${gender} `}
+                    {smoking && `${smoking} `}
+                    {paymentAmount !== "$" && `${paymentAmount} `}
+                    {interestRate !== "%" && `${interestRate} `}
+                    {periods &&
+                    !isNaN(parseInt(periods)) &&
+                    parseInt(periods) !== 0 ? (
+                      <span>
+                        {parseInt(periods)}{" "}
+                        {parseInt(periods) === 1 ? "year" : "years"}
+                      </span>
+                    ) : null}
+                  </p>
                 </div>
               </div>
-              {/* Your toggle button */}
             </div>
+            {stage1}
           </div>
         ) : (
           <div>
             {" "}
             {/* Your toggle button */}
-            <div className="flex justify-center">
+            <div className="flex py-2 justify-center">
               {
                 <ToggleButtons
                   toggleScreen={toggleScreen}
