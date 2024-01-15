@@ -20,17 +20,19 @@ const Popup = () => {
   const [smoking, setSmoking] = useState("non-smoker");
   const [periods, setPeriods] = useState("0");
   const [periodsDisplay, setPeriodsDisplay] = useState("0");
-  const [interestRate, setInterestRate] = useState("%");
-  const [interestRateDisplay, setInterestRateDisplay] = useState("");
+  const [interestRate, setInterestRate] = useState("0%");
+  const [interestRateDisplay, setInterestRateDisplay] = useState("0%");
   const [numericInterest, setNumericInterest] = useState(0);
-  const [paymentAmount, setPaymentAmount] = useState("$");
+  const [paymentAmount, setPaymentAmount] = useState("$0");
   const [paymentFrequency, setPaymentFrequency] = useState("monthly");
   const [paymentStartYear, setPaymentStartYear] = useState("0");
   const [stage, setStage] = useState(Stages.Input);
   const [result, setResult] = useState<number | null>(null);
-  const [ageDisplay, setAgeDisplay] = useState<number | "">("");
+  const [ageDisplay, setAgeDisplay] = useState<number | "">(15);
   const [age, setAge] = useState<number>(15);
   const [ageError, setAgeError] = useState(false);
+  const [interestError, setInterestError] = useState(false);
+
   const [payPeriodError, setPayPeriodError] = useState(false);
   const [smokingStatusError, setSmokingStatusError] = useState(false);
   const [genderStatusError, setGenderStatusError] = useState(false);
@@ -119,9 +121,7 @@ const Popup = () => {
 
     return `$${formattedDollars}.${cents}`;
   };
-
   useEffect(() => {
-    console.log(periods);
     if (!ageError && !payPeriodError) {
       const result = ActuarialCalculation(
         numericInterest / 100,
@@ -166,27 +166,48 @@ const Popup = () => {
   ]);
 
   const handleCalculate = () => {
+    console.log(
+      ageError,
+      payPeriodError,
+      genderStatusError,
+      smokingStatusError
+    );
+
     if (smoking === "") {
       setSmokingStatusError(true);
+      console.log("Smoking condition executed");
+
       return;
     }
     if (gender === "") {
       setGenderStatusError(true);
+      console.log("Gender condition executed");
+
       return;
     }
 
     if (age < 15 || age > 100) {
       setAgeError(true);
+      console.log("Age condition executed");
+
       return;
     } else {
       if (parseInt(periods) + age > 100) {
         setPayPeriodError(true);
+        console.log("Pay condition executed");
+
         return;
       } else {
         setPayPeriodError(false);
         setAgeError(false);
       }
     }
+    console.log(
+      ageError,
+      payPeriodError,
+      genderStatusError,
+      smokingStatusError
+    );
 
     if (
       !ageError &&
@@ -209,9 +230,22 @@ const Popup = () => {
     }
 
     if (ageError || genderStatusError || smokingStatusError || payPeriodError) {
+      console.log(
+        ageError,
+        payPeriodError,
+        genderStatusError,
+        smokingStatusError
+      );
+
       return;
     } else {
       setStage(Stages.Result); // Set the stage to 2 to go to stage 2
+      console.log(
+        ageError,
+        payPeriodError,
+        genderStatusError,
+        smokingStatusError
+      );
     }
 
     exportToXLSX();
@@ -346,12 +380,12 @@ const Popup = () => {
           </p>
         )}
       </div>
-      <div>
+      {/* <div>
         <label className="block text-gray-700 font-bold mb-2">
           Upload XLSX File
         </label>
         <input type="file" accept=".xlsx, .csv" onChange={handleFileUpload} />
-      </div>
+      </div> */}
 
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2">
@@ -405,7 +439,12 @@ const Popup = () => {
               setInterestRate("");
             }
           }}
-        />
+        />{" "}
+        {/* {interestError && !inputFieldsFocused.interestRate && (
+          <p className="text-green-500 text-right pr-4">
+            Please
+          </p>
+        )} */}
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2">
@@ -517,19 +556,16 @@ const Popup = () => {
                   style={{ height: "60px", overflowY: "auto" }}
                 >
                   <p>
-                    {`${age} `}
-                    {gender && `${gender} `}
-                    {smoking && `${smoking} `}
-                    {paymentAmount !== "$" && `${paymentAmount} `}
-                    {interestRate !== "%" && `${interestRate} `}
-                    {periods &&
-                    !isNaN(parseInt(periods)) &&
-                    parseInt(periods) !== 0 ? (
+                    age {`${age} `} {gender && `${gender} `}
+                    {smoking && `${smoking}, `}
+                    {paymentAmount !== "$" && `${paymentAmount} `} at{" "}
+                    {interestRate !== "%" && `${interestRate} `} for{" "}
+                    {periods && !isNaN(parseInt(periods)) && (
                       <span>
                         {parseInt(periods)}{" "}
                         {parseInt(periods) === 1 ? "year" : "years"}
                       </span>
-                    ) : null}
+                    )}
                   </p>
                 </div>
               </div>
