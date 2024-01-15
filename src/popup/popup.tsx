@@ -596,19 +596,16 @@ const Popup = () => {
                   style={{ height: "60px", overflowY: "auto" }}
                 >
                   <p>
-                    {`${age} `}
-                    {gender && `${gender} `}
-                    {smoking && `${smoking} `}
-                    {paymentAmount !== "$" && `${paymentAmount} `}
-                    {interestRate !== "%" && `${interestRate} `}
-                    {periods &&
-                    !isNaN(parseInt(periods)) &&
-                    parseInt(periods) !== 0 ? (
+                    age {`${age} `} {gender && `${gender} `}
+                    {smoking && `${smoking}, `}
+                    {paymentAmount !== "$" && `${paymentAmount} `} at{" "}
+                    {interestRate !== "%" && `${interestRate} `} for{" "}
+                    {periods && !isNaN(parseInt(periods)) && (
                       <span>
                         {parseInt(periods)}{" "}
                         {parseInt(periods) === 1 ? "year" : "years"}
                       </span>
-                    ) : null}
+                    )}
                   </p>
                 </div>
               </div>
