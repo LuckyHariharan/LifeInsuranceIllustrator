@@ -16,8 +16,8 @@ const Popup = () => {
   const [showPolicyIllustrator, setShowPolicyIllustrator] = useState(true);
 
   const [isActuarialMode, setIsActuarialMode] = useState(true);
-  const [gender, setGender] = useState("");
-  const [smoking, setSmoking] = useState("");
+  const [gender, setGender] = useState("male");
+  const [smoking, setSmoking] = useState("non-smoker");
   const [periods, setPeriods] = useState("0");
   const [periodsDisplay, setPeriodsDisplay] = useState("0");
   const [interestRate, setInterestRate] = useState("%");
@@ -121,6 +121,7 @@ const Popup = () => {
   };
 
   useEffect(() => {
+    console.log(periods);
     if (!ageError && !payPeriodError) {
       const result = ActuarialCalculation(
         numericInterest / 100,
