@@ -164,7 +164,6 @@ const Popup = () => {
     paymentAmount,
   ]);
 
-  // Function to handle the calculation when the button is clicked
   const handleCalculate = () => {
     if (smoking === "") {
       setSmokingStatusError(true);
@@ -187,6 +186,7 @@ const Popup = () => {
         setAgeError(false);
       }
     }
+
     if (
       !ageError &&
       !payPeriodError &&
@@ -210,8 +210,9 @@ const Popup = () => {
     if (ageError || genderStatusError || smokingStatusError || payPeriodError) {
       return;
     } else {
-      setStage(Stages.Result);
+      setStage(Stages.Result); // Set the stage to 2 to go to stage 2
     }
+
     exportToXLSX();
   };
 
@@ -473,7 +474,7 @@ const Popup = () => {
     <div className="w-full p-4 bg-slate-200">
       <h1
         className={`text-2xl mb-4 ${
-          stage === Stages.Input
+          isActuarialMode && stage === Stages.Input
             ? "text-black font-bold"
             : "text-black font-bold"
         } flex justify-center`}
@@ -486,7 +487,7 @@ const Popup = () => {
         {showToggle ? (
           <div className="">
             {/* Your toggle button */}
-            <div className="flex  py-2 justify-center">
+            <div className="flex  mb-4 justify-center">
               {
                 <ToggleButtons
                   toggleScreen={toggleScreen}
@@ -532,13 +533,13 @@ const Popup = () => {
                 </div>
               </div>
             </div>
-            {stage1}
+            {stage === Stages.Input && stage1}
+            {stage === Stages.Result && stage2}
           </div>
         ) : (
           <div>
-            {" "}
             {/* Your toggle button */}
-            <div className="flex py-2 justify-center">
+            <div className="flex  mb-4 justify-center">
               {
                 <ToggleButtons
                   toggleScreen={toggleScreen}
@@ -583,7 +584,8 @@ const Popup = () => {
                 </div>
               </div>
             </div>
-            {stage1}
+            {stage === Stages.Input && stage1}
+            {stage === Stages.Result && stage2}
           </div>
         )}
       </div>
