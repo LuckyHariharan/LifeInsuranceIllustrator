@@ -342,7 +342,7 @@ const Popup = () => {
             Please select a gender.
           </p>
         )}
-        {ageError && !inputFieldsFocused.age && (
+        {ageError && (
           <p className="text-green-500 text-right pr-4">
             Age must be between 15 and 100.
           </p>
