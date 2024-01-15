@@ -166,13 +166,6 @@ const Popup = () => {
   ]);
 
   const handleCalculate = () => {
-    console.log(
-      ageError,
-      payPeriodError,
-      genderStatusError,
-      smokingStatusError
-    );
-
     if (smoking === "") {
       setSmokingStatusError(true);
       console.log("Smoking condition executed");
@@ -181,7 +174,6 @@ const Popup = () => {
     }
     if (gender === "") {
       setGenderStatusError(true);
-      console.log("Gender condition executed");
 
       return;
     }
