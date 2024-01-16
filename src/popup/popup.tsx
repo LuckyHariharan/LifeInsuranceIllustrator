@@ -533,7 +533,7 @@ const Popup = () => {
         } flex justify-center`}
       >
         {isActuarialMode && stage === Stages.Input
-          ? "Actuarial CSV Illustrator"
+          ? "Open Illustrator"
           : "Result"}
       </h1>
       <div>
