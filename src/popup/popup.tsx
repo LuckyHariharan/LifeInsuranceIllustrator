@@ -88,16 +88,16 @@ const Popup = () => {
     );
 
     // Calculate the actuarial present value for each policy year with compound interest
+    let accumulatedResult = 0;
     const resultArray = policyYearValues.map((policyYear) => {
       const interestRate = numericInterest / 100;
 
-      // Calculate the interest-weighted result based on the result at year 0
-      const interestWeightedResult =
-        result * Math.pow(1 + interestRate, policyYear);
+      // Accumulate the interest-weighted result based on the result at year 0
+      accumulatedResult = accumulatedResult * (1 + interestRate) + result;
 
       return {
         "Policy Year": policyYear,
-        "Actuarial Present Value": interestWeightedResult,
+        "Actuarial Present Value": accumulatedResult,
       };
     });
 
