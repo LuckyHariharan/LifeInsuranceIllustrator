@@ -81,26 +81,28 @@ const Popup = () => {
     // Create a new workbook
     const wb = XLSX.utils.book_new();
 
-    // Generate an array from 1 to N, where N is calculated as 100 - age
-    const policyYearValues = Array.from({ length: 100 - age }, (_, i) => i + 1);
+    // Generate an array from 0 to 100 - age
+    const policyYearValues = Array.from({ length: 100 - age + 1 }, (_, i) => i);
+
+    // Calculate the actuarial present value for each policy year with compounding interest
+    const resultArray = policyYearValues.map((policyYear) => {
+      const interestRate = numericInterest / 100;
+      const interestWeightedResult =
+        result * Math.pow(1 + interestRate, policyYear);
+      return {
+        "Policy Year": policyYear,
+        "Actuarial Present Value": interestWeightedResult,
+      };
+    });
 
     // Add a worksheet with your data
     const ws = XLSX.utils.json_to_sheet([
-      {
-        "Guaranteed Coverage Amount": "",
-        "Total Guaranteed Cash Values": "",
-        "Total Deposits": "",
-        "Total Cash Surrender Values": "",
-        "Policy Year EOY": "", // Placeholder for column title
-      },
       // Add another row for each policy year
-      ...policyYearValues.map((policyYear) => ({
-        "Guaranteed Coverage Amount": "", // Add your data here
-        "Total Guaranteed Cash Values": "", // Add your data here
-        "Total Deposits": "", // Add your data here
-        "Total Cash Surrender Values": "", // Add your data here
-        "Policy Year EOY": policyYear, // Populate Policy Year EOY column
-      })),
+      {
+        "Policy Year": "Policy Year",
+        "Actuarial Present Value": "Actuarial Present Value",
+      }, // Header row
+      ...resultArray,
     ]);
 
     // Assign the worksheet to the workbook
@@ -487,9 +489,9 @@ const Popup = () => {
 
   const stage2 = (
     <div className="text-center h-full space-y-8 w-full ">
-      <p className="text-xl mt-8 ">
+      <p className="text-md mt-8 ">
         The Actuarial Present Value of that series of payments today is:{" "}
-        <span className="text-green-600 font-bold text-3xl">
+        <span className="text-green-600 font-bold text-lg">
           {formattedResult || "0"}
         </span>
       </p>
