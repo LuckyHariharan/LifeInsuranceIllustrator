@@ -87,22 +87,13 @@ const Popup = () => {
       (_, i) => i + 1
     );
 
-    // Define the number of payment periods based on your state
-    const paymentPeriods = parseInt(periods); // Assuming you have a state variable named 'periods'
-
     // Calculate the actuarial present value for each policy year with compound interest
     let accumulatedResult = 0;
     const resultArray = policyYearValues.map((policyYear) => {
       const interestRate = numericInterest / 100;
 
-      // Check if we are still within the payment periods
-      if (policyYear <= paymentPeriods) {
-        // Accumulate the interest-weighted result based on the result at year 0
-        accumulatedResult = accumulatedResult * (1 + interestRate) + result;
-      } else {
-        // After the payment periods, only apply interest to the accumulated amount
-        accumulatedResult = accumulatedResult * (1 + interestRate);
-      }
+      // Accumulate the interest-weighted result based on the result at year 0
+      accumulatedResult = accumulatedResult * (1 + interestRate) + result;
 
       return {
         "Policy Year": policyYear,
