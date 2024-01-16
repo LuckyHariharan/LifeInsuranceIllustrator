@@ -14,6 +14,7 @@ const Popup = () => {
   };
   // State
   const [showPolicyIllustrator, setShowPolicyIllustrator] = useState(true);
+  const [generateXLSX, setGenerateXLSX] = useState(true);
 
   const [isActuarialMode, setIsActuarialMode] = useState(true);
   const [gender, setGender] = useState("male");
@@ -106,7 +107,9 @@ const Popup = () => {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
 
     // Save the workbook as an XLSX file
-    XLSX.writeFile(wb, "actuarial_data.xlsx");
+    if (generateXLSX) {
+      XLSX.writeFile(wb, "actuarial_data.xlsx");
+    }
   };
 
   // Function to format result
@@ -461,13 +464,23 @@ const Popup = () => {
           }
         />
       </div>
-      <button
-        className="bg-green-500 text-white px-4 py-2 rounded hover-bg-green-600 mt-4"
-        onClick={handleCalculate}
-        hidden={disableButton}
-      >
-        Calculate
-      </button>
+      <div className="flex justify-start space-x-8 mx-auto">
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded hover-bg-green-600 mt-4"
+          onClick={handleCalculate}
+          hidden={disableButton}
+        >
+          Calculate
+        </button>
+        <div className="flex items-center space-x-2">
+          <label className="text-gray-700 font-bold">Generate .XLSX</label>
+          <input
+            type="checkbox"
+            checked={generateXLSX}
+            onChange={() => setGenerateXLSX(!generateXLSX)}
+          />
+        </div>
+      </div>
     </div>
   );
   // Rest of the code comments
