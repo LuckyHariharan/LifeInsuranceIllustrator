@@ -465,13 +465,6 @@ const Popup = () => {
         />
       </div>
       <div className="flex justify-start space-x-8 mx-auto">
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded hover-bg-green-600 mt-4"
-          onClick={handleCalculate}
-          hidden={disableButton}
-        >
-          Calculate
-        </button>
         <div className="flex items-center space-x-2">
           <label className="text-gray-700 font-bold">Generate .XLSX</label>
           <input
@@ -480,6 +473,13 @@ const Popup = () => {
             onChange={() => setGenerateXLSX(!generateXLSX)}
           />
         </div>
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mt-4"
+          onClick={handleCalculate}
+          hidden={disableButton}
+        >
+          Calculate
+        </button>
       </div>
     </div>
   );
@@ -514,7 +514,7 @@ const Popup = () => {
       </div>
       <div className="py-32">
         <button
-          className="bg-blue-500 text-white px-4 py-4 rounded hover:bg-blue-600 "
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4 "
           onClick={handleBackToStage1}
         >
           Back to Input
