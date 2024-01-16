@@ -448,6 +448,14 @@ const Popup = () => {
             inputFieldsFocused.paymentAmount ? "border-black" : ""
           }`}
           value={paymentAmount}
+          onKeyDown={(e) => {
+            // Check if the pressed key is the backspace key
+            if (e.key === "Backspace") {
+              // Handle backspace key here (if needed)
+              setPaymentAmount("");
+            }
+          }}
+          onClick={(e) => setPaymentAmount("")}
           onChange={(e) =>
             setPaymentAmount(formatPaymentAmountInput(e.target.value))
           }
