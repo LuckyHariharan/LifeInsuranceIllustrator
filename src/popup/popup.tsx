@@ -81,29 +81,32 @@ const Popup = () => {
     // Create a new workbook
     const wb = XLSX.utils.book_new();
 
-    // Generate an array from 0 to 100 - age
-    const policyYearValues = Array.from({ length: 100 - age + 1 }, (_, i) => i);
+    // Generate an array from 1 to 100 - age
+    const policyYearValues = Array.from(
+      { length: 100 - age + 1 },
+      (_, i) => i + 1
+    );
 
     // Calculate the actuarial present value for each policy year with compounding interest
     const resultArray = policyYearValues.map((policyYear) => {
       const interestRate = numericInterest / 100;
-      const interestWeightedResult =
-        result * Math.pow(1 + interestRate, policyYear);
+      let interestWeightedResult = result;
+
+      // Calculate interest-weighted result for each year after the first
+      for (let i = 1; i < policyYear; i++) {
+        interestWeightedResult *= 1 + interestRate;
+      }
+
       return {
         "Policy Year": policyYear,
         "Actuarial Present Value": interestWeightedResult,
       };
     });
 
-    // Add a worksheet with your data
-    const ws = XLSX.utils.json_to_sheet([
-      // Add another row for each policy year
-      {
-        "Policy Year": "Policy Year",
-        "Actuarial Present Value": "Actuarial Present Value",
-      }, // Header row
-      ...resultArray,
-    ]);
+    // Exclude the header when creating the worksheet
+    const ws = XLSX.utils.json_to_sheet(resultArray, {
+      header: ["Policy Year", "Actuarial Present Value"],
+    });
 
     // Assign the worksheet to the workbook
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
