@@ -1,20 +1,22 @@
-const ActuarialCalculation = (
-  interest: number,
-  payPeriods: number,
-  gender: string,
-  payment: number,
-  smokingStatus: string,
-  age: number
-): number => {
-  const discountRateArray: number[] = [];
-  const paymentArray: number[] = [];
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var ActuarialCalculation = function (
+  interest,
+  payPeriods,
+  gender,
+  payment,
+  smokingStatus,
+  age
+) {
+  var discountRateArray = [];
+  var paymentArray = [];
   // Step 1: Build the discount rate array using n=1,...,payPeriods (1/(1+i)^n)
-  let discountRate = 1 / (1 + interest);
-  for (let i = 0; i < payPeriods; i++) {
+  var discountRate = 1 / (1 + interest);
+  for (var i = 0; i < payPeriods; i++) {
     discountRateArray.push(discountRate);
     discountRate *= 1 / (1 + interest);
   }
-  const femaleNonsmokerMortalityArray = [
+  var femaleNonsmokerMortalityArray = [
     0.00032, 0.00035, 0.00038, 0.00041, 0.00043, 0.00044, 0.00044, 0.00045,
     0.00045, 0.00046, 0.00046, 0.00047, 0.00048, 0.00049, 0.0005, 0.00052,
     0.00053, 0.00055, 0.00057, 0.00061, 0.00064, 0.0007, 0.00078, 0.00087,
@@ -27,8 +29,7 @@ const ActuarialCalculation = (
     0.12446, 0.13743, 0.15112, 0.16544, 0.18062, 0.19699, 0.2152, 0.23652,
     0.26338, 0.30101, 0.35966, 0.46234, 0.64743,
   ]; // Female nonsmoker
-
-  const femaleSmokerMortalityArray = [
+  var femaleSmokerMortalityArray = [
     0.00042, 0.00046, 0.0005, 0.00055, 0.00058, 0.00059, 0.0006, 0.00062,
     0.00063, 0.00065, 0.00066, 0.00069, 0.00072, 0.00074, 0.00078, 0.00083,
     0.00087, 0.00092, 0.00097, 0.00105, 0.00111, 0.00123, 0.00139, 0.00157,
@@ -41,8 +42,7 @@ const ActuarialCalculation = (
     0.13442, 0.14705, 0.15868, 0.17206, 0.18604, 0.20093, 0.21735, 0.23652,
     0.26338, 0.30101, 0.35966, 0.46234, 0.64743,
   ];
-
-  const maleNonsmokerMortalityArray = [
+  var maleNonsmokerMortalityArray = [
     0.00073, 0.00086, 0.00096, 0.00101, 0.00105, 0.00106, 0.00104, 0.001,
     0.00095, 0.0009, 0.00083, 0.00077, 0.00073, 0.00069, 0.00067, 0.00065,
     0.00065, 0.00066, 0.00068, 0.00071, 0.00076, 0.00081, 0.00089, 0.00097,
@@ -55,8 +55,7 @@ const ActuarialCalculation = (
     0.15587, 0.16806, 0.18033, 0.1928, 0.20561, 0.21907, 0.2336, 0.25072,
     0.27302, 0.30992, 0.36746, 0.4708, 0.6567,
   ];
-
-  const maleSmokerMortalityArray = [
+  var maleSmokerMortalityArray = [
     0.00109, 0.0013, 0.00147, 0.00157, 0.00165, 0.00169, 0.0017, 0.00166,
     0.0016, 0.00154, 0.00145, 0.00137, 0.00133, 0.00129, 0.00129, 0.00131,
     0.00135, 0.0014, 0.00148, 0.00158, 0.0017, 0.00185, 0.00205, 0.00227,
@@ -69,16 +68,14 @@ const ActuarialCalculation = (
     0.17614, 0.18654, 0.19656, 0.2063, 0.21589, 0.22565, 0.23827, 0.25322,
     0.27302, 0.30992, 0.36746, 0.4708, 0.6567,
   ];
-
   // Step 2: Construct an array of n length where each value is payment
-  for (let i = 0; i < payPeriods; i++) {
+  for (var i = 0; i < payPeriods; i++) {
     paymentArray.push(payment);
   }
-
   // Step 3: Calculate the Actuarial Present Value
-  let actuarialPresentValue = 0;
-  let mortalityArray = []; // initialize mortality array here to conditionally mutate later
-  for (let i = 0; i < payPeriods; i++) {
+  var actuarialPresentValue = 0;
+  var mortalityArray = []; // initialize mortality array here to conditionally mutate later
+  for (var i = 0; i < payPeriods; i++) {
     // Determine the correct mortality array based on gender and smoking status
     if (gender === "female" && smokingStatus === "non-smoker") {
       mortalityArray = femaleNonsmokerMortalityArray;
@@ -91,18 +88,14 @@ const ActuarialCalculation = (
     } else {
       throw new Error("Invalid gender or smoking status");
     }
-    const presentValue =
+    var presentValue =
       paymentArray[i] *
       discountRateArray[i] *
       (1 - mortalityArray[i + age - 15]); // 1- mortality is chance of living next year, the fisrt mortality value is age 15
-
     // Add it to the total
     actuarialPresentValue += presentValue;
   }
-
   return actuarialPresentValue;
 };
 // Example usage:
-const result = ActuarialCalculation(0.05, 10, "Male", 1000, "Smoker", 30);
-
-export default ActuarialCalculation;
+exports.default = ActuarialCalculation;
