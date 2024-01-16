@@ -486,9 +486,9 @@ const Popup = () => {
   // Rest of the code comments
 
   const stage2 = (
-    <div className="text-center h-full space-y-12 w-full ">
-      <p className="text-xl mb-4 ">
-        The Actuarial Present Value of that series of payments is:{" "}
+    <div className="text-center h-full space-y-8 w-full ">
+      <p className="text-xl mb-12 ">
+        The Actuarial Present Value of that series of payments today is:{" "}
         <span className="text-green-600 font-bold text-3xl">
           {formattedResult || "0"}
         </span>
@@ -498,7 +498,7 @@ const Popup = () => {
         <p className="font-bold underline">interest-0.10%</p>
         <p className="font-bold underline">interest</p>
         <p className="font-bold underline">interest+0.10%</p>
-        <p className="font-bold ">Cash Value age=65</p>
+        <p className="font-bold ">APV Age 65</p>
         <p>
           {sensitivityResult &&
             formatResult(sensitivityResult.lowerCashValue65 || 0)}
