@@ -487,7 +487,7 @@ const Popup = () => {
 
   const stage2 = (
     <div className="text-center h-full space-y-8 w-full ">
-      <p className="text-xl mt-12 ">
+      <p className="text-xl mt-8 ">
         The Actuarial Present Value of that series of payments today is:{" "}
         <span className="text-green-600 font-bold text-3xl">
           {formattedResult || "0"}
