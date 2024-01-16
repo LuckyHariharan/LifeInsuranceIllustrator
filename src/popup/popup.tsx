@@ -512,7 +512,7 @@ const Popup = () => {
             formatResult(sensitivityResult.higherCashValue65 || 0)}
         </p>{" "}
       </div>
-      <div className="py-32">
+      <div className="">
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4 "
           onClick={handleBackToStage1}
