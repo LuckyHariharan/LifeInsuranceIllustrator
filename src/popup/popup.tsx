@@ -87,15 +87,13 @@ const Popup = () => {
       (_, i) => i + 1
     );
 
-    // Calculate the actuarial present value for each policy year with compounding interest
+    // Calculate the actuarial present value for each policy year with compound interest
     const resultArray = policyYearValues.map((policyYear) => {
       const interestRate = numericInterest / 100;
-      let interestWeightedResult = result;
 
-      // Calculate interest-weighted result for each year after the first
-      for (let i = 1; i < policyYear; i++) {
-        interestWeightedResult *= 1 + interestRate;
-      }
+      // Calculate the interest-weighted result based on the result at year 0
+      const interestWeightedResult =
+        result * Math.pow(1 + interestRate, policyYear);
 
       return {
         "Policy Year": policyYear,
@@ -103,7 +101,7 @@ const Popup = () => {
       };
     });
 
-    // Exclude the header when creating the worksheet
+    // Add a worksheet with your data
     const ws = XLSX.utils.json_to_sheet(resultArray, {
       header: ["Policy Year", "Actuarial Present Value"],
     });
